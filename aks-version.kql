@@ -1,0 +1,4 @@
+KubeNodeInventory
+| where ClusterId =~ '/subscriptions/9d957d40-b4aa-47b6-83ec-2f5bc899a938/resourceGroups/bstp-cdpk8s-prod-kubectl-we/providers/Microsoft.ContainerService/managedClusters/bstp-cdpk8s-prod-kubectl-we'
+| project ClusterName, KubeletVersion, KubeProxyVersion, todynamic(Labels)[0]["beta.kubernetes.io/instance-type"], todynamic(Labels)[0]["storagetier"]
+| sample 1

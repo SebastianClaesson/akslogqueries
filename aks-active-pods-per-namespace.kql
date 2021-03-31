@@ -1,0 +1,6 @@
+KubePodInventory
+// | where ClusterId =~ '<ResourceId of cluster>' Needed if you are saving data from several clusters
+| where ContainerStatus == 'running'
+| distinct Namespace, ServiceName
+| summarize Count=count() by Namespace
+| render piechart 

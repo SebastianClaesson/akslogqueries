@@ -1,0 +1,6 @@
+KubeEvents
+// | where ClusterId =~ '<resourceid of cluster>'
+| where Reason == 'SystemOOM'
+| project TimeGenerated, format_datetime(LastSeen,'dd-MM-yyyy HH:MM:ss'), Message, Name
+| order by TimeGenerated desc
+| project-away TimeGenerated
