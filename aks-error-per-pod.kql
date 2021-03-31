@@ -1,7 +1,8 @@
 KubeEvents
-// | where ClusterId =~ '<Resourceid of aks cluster>' needed if you have several aks clusters writing to the same log.
+// | where ClusterId =~ '<resource id>'
 | where Reason != "SystemOOM"
-| project TimeGenerated, Name, Namespace, format_datetime(LastSeen, 'dd-MM-yyyy HH:MM:ss'),   Reason, Message, Count, Computer, format_datetime(FirstSeen, 'dd-MM-yyyy HH:MM:ss')
+| project TimeGenerated, Name, Namespace, format_datetime(LastSeen, 'dd-MM-yyyy HH:MM:ss'), Reason, Message, Computer, format_datetime(FirstSeen, 'dd-MM-yyyy HH:MM:ss')
 | order by TimeGenerated desc
 | project-away TimeGenerated
-| render columnchart
+| summarize Count=count() by Name
+| render columnchart with ( legend=hidden )
